@@ -1,11 +1,15 @@
-import { Server, Globe, Link } from "lucide-react";
+import { Server, Globe, Link, Cpu, HardDrive, Activity, Zap } from "lucide-react";
 import InfoCard from "@/components/InfoCard";
+import StatsCard from "@/components/StatsCard";
+import ResourceUsageChart from "@/components/charts/ResourceUsageChart";
+import UptimeChart from "@/components/charts/UptimeChart";
+import PerformanceChart from "@/components/charts/PerformanceChart";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border/50 backdrop-blur-sm sticky top-0 z-10">
+      <header className="border-b border-border/50 backdrop-blur-sm sticky top-0 z-10 bg-background/80">
         <div className="container mx-auto px-4 py-6">
           <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
             My Dashboard
@@ -15,36 +19,90 @@ const Index = () => {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          <InfoCard
-            icon={Server}
-            title="Virtual Machine"
-            value="VM-Server-01"
-            description="Your primary virtual machine instance"
-          />
-          
-          <InfoCard
-            icon={Globe}
-            title="Website Name"
-            value="myawesomesite.com"
-            description="Your main website domain"
-          />
-          
-          <InfoCard
-            icon={Link}
-            title="Subdomain Name"
-            value="app.mysite.com"
-            description="Application subdomain endpoint"
-          />
-        </div>
+      <main className="container mx-auto px-4 py-12 space-y-12">
+        {/* Resource Cards */}
+        <section>
+          <h2 className="text-2xl font-bold text-foreground mb-6">Your Resources</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <InfoCard
+              icon={Server}
+              title="Virtual Machine"
+              value="VM-Server-01"
+              description="Your primary virtual machine instance"
+            />
+            
+            <InfoCard
+              icon={Globe}
+              title="Website Name"
+              value="myawesomesite.com"
+              description="Your main website domain"
+            />
+            
+            <InfoCard
+              icon={Link}
+              title="Subdomain Name"
+              value="app.mysite.com"
+              description="Application subdomain endpoint"
+            />
+          </div>
+        </section>
+
+        {/* Quick Stats */}
+        <section>
+          <h2 className="text-2xl font-bold text-foreground mb-6">Quick Stats</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <StatsCard
+              icon={Cpu}
+              label="CPU Usage"
+              value="72%"
+              trend="5% from last hour"
+              trendUp={false}
+            />
+            <StatsCard
+              icon={HardDrive}
+              label="Memory"
+              value="8.2 GB"
+              trend="12% from yesterday"
+              trendUp={true}
+            />
+            <StatsCard
+              icon={Activity}
+              label="Active Users"
+              value="1,247"
+              trend="8% from last week"
+              trendUp={true}
+            />
+            <StatsCard
+              icon={Zap}
+              label="Requests/min"
+              value="3,542"
+              trend="15% from last hour"
+              trendUp={true}
+            />
+          </div>
+        </section>
+
+        {/* Analytics & Charts */}
+        <section>
+          <h2 className="text-2xl font-bold text-foreground mb-6">Analytics & Performance</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <ResourceUsageChart />
+            <PerformanceChart />
+          </div>
+          <div className="mt-6">
+            <UptimeChart />
+          </div>
+        </section>
 
         {/* Add More Section */}
-        <div className="mt-12 text-center animate-fade-in">
-          <p className="text-muted-foreground">
-            Want to add more? Just duplicate the InfoCard component with your new data!
-          </p>
-        </div>
+        <section className="text-center animate-fade-in">
+          <div className="max-w-2xl mx-auto p-8 rounded-lg bg-gradient-card border border-border/50">
+            <h3 className="text-xl font-semibold text-foreground mb-2">Want to add more?</h3>
+            <p className="text-muted-foreground">
+              Just duplicate the InfoCard component with your new data or add more charts to track additional metrics!
+            </p>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
