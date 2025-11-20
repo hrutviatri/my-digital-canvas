@@ -1,85 +1,44 @@
 import { useState } from "react";
-import { Server, Globe, Link, Cpu, HardDrive, Activity, Zap, Database, Cloud, Network, Lock, Box, FileText } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Cpu, HardDrive, Activity, Zap, Server, Settings as SettingsIcon } from "lucide-react";
+import { useResources, getIconComponent } from "@/contexts/ResourceContext";
 import InfoCard from "@/components/InfoCard";
 import StatsCard from "@/components/StatsCard";
 import ResourceUsageChart from "@/components/charts/ResourceUsageChart";
 import UptimeChart from "@/components/charts/UptimeChart";
 import PerformanceChart from "@/components/charts/PerformanceChart";
 import ResourceDetailsModal from "@/components/ResourceDetailsModal";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
+  const navigate = useNavigate();
+  const { resources, creatorInfo } = useResources();
   const [selectedResource, setSelectedResource] = useState<{
     title: string;
     value: string;
     description?: string;
   } | null>(null);
 
-  const resources = [
-    {
-      icon: Server,
-      title: "Virtual Machine",
-      value: "VM-Server-01",
-      description: "Your primary virtual machine instance"
-    },
-    {
-      icon: Globe,
-      title: "Website Name",
-      value: "myawesomesite.com",
-      description: "Your main website domain"
-    },
-    {
-      icon: Link,
-      title: "Subdomain Name",
-      value: "app.mysite.com",
-      description: "Application subdomain endpoint"
-    },
-    {
-      icon: Database,
-      title: "SQL Database",
-      value: "prod-db-main",
-      description: "Production SQL database server"
-    },
-    {
-      icon: Cloud,
-      title: "Storage Account",
-      value: "storageaccount123",
-      description: "Blob and file storage container"
-    },
-    {
-      icon: Network,
-      title: "Virtual Network",
-      value: "vnet-production",
-      description: "Azure virtual network gateway"
-    },
-    {
-      icon: Lock,
-      title: "Key Vault",
-      value: "keyvault-secrets",
-      description: "Secure secrets and certificates"
-    },
-    {
-      icon: Box,
-      title: "App Service",
-      value: "webapp-prod-01",
-      description: "Web application hosting service"
-    },
-    {
-      icon: FileText,
-      title: "Resource Group",
-      value: "rg-production",
-      description: "Resource group container"
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border/50 backdrop-blur-sm sticky top-0 z-10 bg-background/80">
         <div className="container mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            My Dashboard
-          </h1>
-          <p className="text-muted-foreground mt-2">Manage and monitor your resources</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                My Dashboard
+              </h1>
+              <p className="text-muted-foreground mt-2">Manage and monitor your resources</p>
+            </div>
+            <Button
+              onClick={() => navigate("/settings")}
+              className="bg-gradient-primary hover:opacity-90"
+            >
+              <SettingsIcon className="w-4 h-4 mr-2" />
+              Settings
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -97,10 +56,10 @@ const Index = () => {
                 Created By
               </h3>
               <p className="text-primary-foreground/90 text-lg font-medium mb-2">
-                Your Name Here
+                {creatorInfo.name}
               </p>
               <p className="text-primary-foreground/70 text-sm">
-                Built with passion using modern cloud technologies
+                {creatorInfo.tagline}
               </p>
               <div className="mt-6 flex items-center justify-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-primary-foreground/50 animate-pulse" />
@@ -114,16 +73,19 @@ const Index = () => {
         <section>
           <h2 className="text-2xl font-bold text-foreground mb-6">Your Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {resources.map((resource, index) => (
-              <InfoCard
-                key={index}
-                icon={resource.icon}
-                title={resource.title}
-                value={resource.value}
-                description={resource.description}
-                onClick={() => setSelectedResource(resource)}
-              />
-            ))}
+            {resources.map((resource) => {
+              const IconComponent = getIconComponent(resource.icon);
+              return (
+                <InfoCard
+                  key={resource.id}
+                  icon={IconComponent}
+                  title={resource.title}
+                  value={resource.value}
+                  description={resource.description}
+                  onClick={() => setSelectedResource(resource)}
+                />
+              );
+            })}
           </div>
         </section>
 
