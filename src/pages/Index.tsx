@@ -1,4 +1,4 @@
-import { Server, Globe, Link, Cpu, HardDrive, Activity, Zap } from "lucide-react";
+import { Server, Globe, Link, Cpu, HardDrive, Activity, Zap, Database, Cloud, Network, Lock, Box, FileText } from "lucide-react";
 import InfoCard from "@/components/InfoCard";
 import StatsCard from "@/components/StatsCard";
 import ResourceUsageChart from "@/components/charts/ResourceUsageChart";
@@ -43,6 +43,48 @@ const Index = () => {
               title="Subdomain Name"
               value="app.mysite.com"
               description="Application subdomain endpoint"
+            />
+
+            <InfoCard
+              icon={Database}
+              title="SQL Database"
+              value="prod-db-main"
+              description="Production SQL database server"
+            />
+
+            <InfoCard
+              icon={Cloud}
+              title="Storage Account"
+              value="storageaccount123"
+              description="Blob and file storage container"
+            />
+
+            <InfoCard
+              icon={Network}
+              title="Virtual Network"
+              value="vnet-production"
+              description="Azure virtual network gateway"
+            />
+
+            <InfoCard
+              icon={Lock}
+              title="Key Vault"
+              value="keyvault-secrets"
+              description="Secure secrets and certificates"
+            />
+
+            <InfoCard
+              icon={Box}
+              title="App Service"
+              value="webapp-prod-01"
+              description="Web application hosting service"
+            />
+
+            <InfoCard
+              icon={FileText}
+              title="Resource Group"
+              value="rg-production"
+              description="Resource group container"
             />
           </div>
         </section>
@@ -94,13 +136,28 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Add More Section */}
+        {/* Creator Section */}
         <section className="text-center animate-fade-in">
-          <div className="max-w-2xl mx-auto p-8 rounded-lg bg-gradient-card border border-border/50">
-            <h3 className="text-xl font-semibold text-foreground mb-2">Want to add more?</h3>
-            <p className="text-muted-foreground">
-              Just duplicate the InfoCard component with your new data or add more charts to track additional metrics!
-            </p>
+          <div className="max-w-2xl mx-auto p-8 rounded-xl bg-gradient-primary relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 animate-glow" />
+            <div className="relative z-10">
+              <div className="inline-block p-4 rounded-full bg-background/10 backdrop-blur-sm mb-4">
+                <Server className="w-8 h-8 text-primary-foreground" />
+              </div>
+              <h3 className="text-2xl font-bold text-primary-foreground mb-2">
+                Created By
+              </h3>
+              <p className="text-primary-foreground/90 text-lg font-medium mb-2">
+                Your Name Here
+              </p>
+              <p className="text-primary-foreground/70 text-sm">
+                Built with passion using modern cloud technologies
+              </p>
+              <div className="mt-6 flex items-center justify-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-primary-foreground/50 animate-pulse" />
+                <p className="text-xs text-primary-foreground/70">Powered by Azure Cloud Services</p>
+              </div>
+            </div>
           </div>
         </section>
       </main>
