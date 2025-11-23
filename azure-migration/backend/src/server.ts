@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth';
 import profileRoutes from './routes/profiles';
 import themeRoutes from './routes/theme';
+import uploadRoutes from './routes/upload';
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/profiles', profileRoutes);
 app.use('/api/theme', themeRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // 404 handler
 app.use((req, res) => {
